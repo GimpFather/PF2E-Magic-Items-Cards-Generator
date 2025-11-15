@@ -1,0 +1,9 @@
+{
+  "ITEM_CARD.USAGE": "Usage: {usage}",
+  "ITEM_CARD.BULK": "Bulk: {bulk}",
+  "ITEM_CARD.ACTIVATE": "Activate: {activate}",
+  "ITEM_CARD.TRIGGER": "Trigger: {trigger}",
+  "PREVIEW_DIALOG.LOADING": "Loading...",
+  "PREVIEW_DIALOG.TITLE": "Preview",
+  "PREVIEW_DIALOG.DESCRIPTION": "This is a preview of the cards you will print. You can save this image to your device by right clicking on it and selecting \"Save image as...\"."
+}
