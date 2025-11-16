@@ -5,5 +5,19 @@
   "ITEM_CARD.TRIGGER": "Trigger: {trigger}",
   "PREVIEW_DIALOG.LOADING": "Loading...",
   "PREVIEW_DIALOG.TITLE": "Preview",
-  "PREVIEW_DIALOG.DESCRIPTION": "This is a preview of the cards you will print. You can save this image to your device by right clicking on it and selecting \"Save image as...\"."
+  "PREVIEW_DIALOG.DESCRIPTION": "This is a preview of the cards you will print. You can save this image to your device by right clicking on it and selecting \"Save image as...\".",
+  "NAVBAR.TITLE": "(Yet Another) PF2E Magic Items Cards Generator",
+  "NAVBAR.BY": "by GimpFather - Part of Gimp's Closet",
+  "NAVBAR.ABOUT": "About the Project",
+  "HERO.TITLE": "Quick. Easy. Free.",
+  "HERO.SUBTITLE": "Generate your own magic items cards for Pathfinder 2E.",
+  "APP.ICON": "🧦",
+  "APP.TITLE": "Read before using.",
+  "APP.DESCRIPTION.1": "This is a simple tool that let's you put your magic items into cards, that's gonna be placed in special cards. They gonna be placed on A4 paper template as an one image. You will be able to check if they are placed correctly and then save them out and print to use them in your games.",
+  "APP.DESCRIPTION.2": "App allows you to put any text that you want in place of bulk, usage etc. so be sure to check if everything is placed correctly before printing.",
+  "APP.DESCRIPTION.3": "My main goal is to make app as flexible as possible so you can use it for your own needs. You never know if someone wants to insert 'really heavy' as bulk.",
+  "APP.DESCRIPTION.4": "From obvious reasons, this app is desktop only.",
+  "HERO.EMOJI.TITLE.1": "👑📿🔧🔍🧹💣🧥🧣",
+  "HERO.EMOJI.TITLE.2": "☂️🥍🥋💍🧤🎺🧦🔰",
+  "HERO.BUTTON.TEXT": "Start making cards"
 }
