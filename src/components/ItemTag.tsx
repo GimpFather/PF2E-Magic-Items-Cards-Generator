@@ -4,7 +4,7 @@ const ItemTag = ({ name }: { name: string }) => {
   return (
     <Typography
       variant="itemText"
-      sx={{ border: "1px solid #000", padding: 0.5 }}
+      sx={{ padding: 0.5, backgroundColor: "#00000014" }}
     >
       {name}
     </Typography>

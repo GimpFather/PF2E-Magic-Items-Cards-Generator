@@ -25,14 +25,14 @@ const HeroPage = () => {
           marginTop: 10,
         }}
       >
-        <Typography variant={"h1"} sx={{ textAlign: "center" }}>
+        <Typography variant="h1" sx={{ textAlign: "center" }}>
           <FormattedMessage id="HERO.TITLE" />
         </Typography>
-        <Typography variant={"h5"} sx={{ textAlign: "center" }}>
+        <Typography variant="h5" sx={{ textAlign: "center" }}>
           <FormattedMessage id="HERO.SUBTITLE" />
         </Typography>
       </Stack>
-      <Stack direction={"row"} gap={2} sx={{ marginTop: 10 }}>
+      <Stack direction="row" gap={2} sx={{ marginTop: 10 }}>
         <ModePreview />
       </Stack>
       <Button

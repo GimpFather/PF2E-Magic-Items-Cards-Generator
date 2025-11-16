@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import type { MagicItem } from "../types";
 import { items } from "../items";
 import { useNavigate } from "react-router";
+import { Eye, Plus } from "@phosphor-icons/react";
+import { motion } from "framer-motion";
 
 const MakeItemsPage = () => {
   const navigate = useNavigate();
@@ -60,19 +62,23 @@ const MakeItemsPage = () => {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Divider sx={{ marginY: 2, borderColor: "#000" }} />
+    <Container
+      maxWidth="lg"
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    >
+      <Divider sx={{ marginBottom: 2, borderColor: "#000" }} />
       <Stack gap={0.75} sx={{ marginTop: 2 }}>
-        <Typography variant="h5">
-          🧦 Make Items by inserting data below.
+        <Typography variant="h6" fontWeight={700}>
+          <FormattedMessage id="MAKE_ITEMS.TITLE" />
         </Typography>
         <Typography variant="body1">
-          A4 paper will probably fit around 6 items. Although, it's not a rule,
-          check preview to see if it fits.
+          <FormattedMessage id="MAKE_ITEMS.DESCRIPTION" />
         </Typography>
         <Typography variant="body1">
-          Only required field is name. All other fields are optional for the
-          sake of flexibility.
+          <FormattedMessage id="MAKE_ITEMS.DESCRIPTION.LOCAL_STORAGE" />
         </Typography>
       </Stack>
       <Stack gap={2} sx={{ marginTop: 2 }}>
@@ -90,19 +96,28 @@ const MakeItemsPage = () => {
         variant="contained"
         color="primary"
         size="large"
-        sx={{ marginTop: 2, width: "100%" }}
+        sx={{ marginTop: 2, width: "100%", borderRadius: 0 }}
         onClick={handleAddNewItem}
+        startIcon={<Plus size={20} />}
+        component={motion.div}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <FormattedMessage id="MAKE_ITEMS.BUTTON.TEXT.ADD" />
       </Button>
       <Button
         variant="outlined"
-        color="secondary"
         size="large"
-        sx={{ marginTop: 2, width: "100%" }}
+        sx={{ marginTop: 2, width: "100%", borderRadius: 0 }}
         onClick={() => navigate("/generate-cards")}
+        startIcon={<Eye size={20} />}
+        component={motion.div}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
-        Generate Cards
+        <FormattedMessage id="MAKE_ITEMS.BUTTON.TEXT.PREVIEW" />
       </Button>
     </Container>
   );

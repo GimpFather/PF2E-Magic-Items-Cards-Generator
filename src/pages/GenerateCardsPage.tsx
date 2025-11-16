@@ -1,4 +1,4 @@
-import { Button, Grid, Container, Stack } from "@mui/material";
+import { Button, Grid, Container, Stack, Divider } from "@mui/material";
 import ItemCard from "../components/ItemCard";
 import { getMagicItems } from "../localStorage";
 import html2canvas from "html2canvas";
@@ -6,7 +6,9 @@ import { useState } from "react";
 import PreviewDialog from "../components/PreviewDialog";
 import type { MagicItem } from "../types";
 import { useNavigate } from "react-router";
-import { ArrowLeft } from "@phosphor-icons/react";
+import { ArrowLeft, Cards } from "@phosphor-icons/react";
+import { FormattedMessage } from "react-intl";
+import { motion } from "framer-motion";
 
 const GenerateCardsPage = () => {
   const navigate = useNavigate();
@@ -34,24 +36,42 @@ const GenerateCardsPage = () => {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Stack direction="row" gap={2} sx={{ marginTop: 2, marginBottom: 2 }}>
+    <Container
+      maxWidth="lg"
+      component={motion.div}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+    >
+      <Divider sx={{ marginBottom: 2, borderColor: "#000" }} />
+      <Stack direction="row" gap={2} sx={{ marginY: 2 }}>
         <Button
           onClick={() => navigate("/make-items")}
           variant="outlined"
           color="primary"
           size="large"
           startIcon={<ArrowLeft size={20} />}
+          sx={{ borderRadius: 0 }}
+          component={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          Back to Items
+          <FormattedMessage id="GENERATE_CARDS.BUTTON.TEXT.BACK" />
         </Button>
         <Button
           onClick={printCards}
           variant="contained"
           color="primary"
           size="large"
+          sx={{ borderRadius: 0 }}
+          startIcon={<Cards size={20} />}
+          component={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          Print Cards
+          <FormattedMessage id="GENERATE_CARDS.BUTTON.TEXT.GENERATE" />
         </Button>
       </Stack>
       <PreviewDialog open={open} setOpen={setOpen} canvasUrl={canvasUrl} />

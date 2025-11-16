@@ -62,7 +62,9 @@ const ItemCard = ({ item }: { item: MagicItem }) => {
       </Stack>
       <Divider sx={{ borderColor: "#000" }} />
       {item.description && (
-        <Typography variant="itemText">{item.description}</Typography>
+        <Typography variant="itemText" sx={{ whiteSpace: "pre-wrap" }}>
+          {item.description}
+        </Typography>
       )}
     </Stack>
   );

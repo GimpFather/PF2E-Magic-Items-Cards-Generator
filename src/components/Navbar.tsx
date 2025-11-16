@@ -2,7 +2,7 @@ import { Container, Stack, Typography, useTheme } from "@mui/material";
 import { FormattedMessage } from "react-intl";
 import { useNavigate } from "react-router";
 import { motion } from "framer-motion";
-import { Cards } from "@phosphor-icons/react";
+import { Sock } from "@phosphor-icons/react";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const Navbar = () => {
             onClick={handleRedirectToHome}
             sx={{ cursor: "pointer" }}
           >
-            <Cards size={32} />
+            <Sock size={32} />
             <Stack>
               <Typography variant="h5" color="common.black">
                 <FormattedMessage id="NAVBAR.TITLE" />
