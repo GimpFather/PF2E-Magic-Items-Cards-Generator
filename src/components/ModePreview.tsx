@@ -1,10 +1,11 @@
-import { Stack, Typography, useTheme } from "@mui/material";
+import { Button, Stack, Typography, useTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import { FormattedMessage } from "react-intl";
+import { useNavigate } from "react-router";
 
 const AppPreview = () => {
   const { palette } = useTheme();
-
+  const navigate = useNavigate();
   const modeColor = palette.primary.main;
 
   return (
@@ -43,6 +44,15 @@ const AppPreview = () => {
           <FormattedMessage id="APP.DESCRIPTION.4" />
         </Typography>
       </Stack>
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        sx={{ borderRadius: 0 }}
+        onClick={() => navigate("/make-items")}
+      >
+        <FormattedMessage id="HERO.BUTTON.TEXT" />
+      </Button>
     </Stack>
   );
 };

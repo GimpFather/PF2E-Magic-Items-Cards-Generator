@@ -1,13 +1,11 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Stack } from "@mui/material";
 import EmojiSliderRow from "../components/EmojiSliderRow";
 import { motion } from "framer-motion";
 import { FormattedMessage } from "react-intl";
 import ModePreview from "../components/ModePreview";
-import { useNavigate } from "react-router";
 
 const HeroPage = () => {
-  const navigate = useNavigate();
   return (
     <Stack
       gap={5}
@@ -36,15 +34,6 @@ const HeroPage = () => {
       <Stack direction="row" gap={2} sx={{ marginTop: 10 }}>
         <ModePreview />
       </Stack>
-      <Button
-        variant="contained"
-        color="primary"
-        size="large"
-        sx={{ borderRadius: 0 }}
-        onClick={() => navigate("/make-items")}
-      >
-        <FormattedMessage id="HERO.BUTTON.TEXT" />
-      </Button>
     </Stack>
   );
 };
