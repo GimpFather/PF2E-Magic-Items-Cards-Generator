@@ -15,7 +15,8 @@ const HeroPage = () => {
       component={motion.div}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      style={{ willChange: "opacity" }}
     >
       <EmojiSliderRow />
       <Stack
@@ -40,10 +41,6 @@ const HeroPage = () => {
         color="primary"
         size="large"
         sx={{ borderRadius: 0 }}
-        component={motion.div}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
         onClick={() => navigate("/make-items")}
       >
         <FormattedMessage id="HERO.BUTTON.TEXT" />

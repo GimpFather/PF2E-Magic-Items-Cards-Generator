@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
+import { memo } from "react";
 
-const ItemTag = ({ name }: { name: string }) => {
+const ItemTag = memo(({ name }: { name: string }) => {
   return (
     <Typography
       variant="itemText"
@@ -9,6 +10,8 @@ const ItemTag = ({ name }: { name: string }) => {
       {name}
     </Typography>
   );
-};
+});
+
+ItemTag.displayName = "ItemTag";
 
 export default ItemTag;

@@ -41,7 +41,7 @@ function App() {
       >
         {items.map((item, index) => (
           <Grid
-            key={index}
+            key={item.name ? `${item.name}-${index}` : `item-${index}`}
             size={4}
             sx={{
               border: "1px solid #000",

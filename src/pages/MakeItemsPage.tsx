@@ -2,7 +2,7 @@ import { Button, Container, Divider, Stack, Typography } from "@mui/material";
 import NewItemForm from "../components/NewItemForm";
 import { FormattedMessage } from "react-intl";
 import { getMagicItems, saveMagicItems } from "../localStorage";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { MagicItem } from "../types";
 import { items } from "../items";
 import { useNavigate } from "react-router";
@@ -24,42 +24,52 @@ const MakeItemsPage = () => {
     }
   }, []);
 
-  const handleSaveMagicItem = (magicItem: MagicItem, index: number | null) => {
-    let newMagicItems: MagicItem[];
+  const handleSaveMagicItem = useCallback(
+    (magicItem: MagicItem, index: number | null) => {
+      let newMagicItems: MagicItem[];
 
-    if (index !== null && index >= 0 && index < magicItems.length) {
-      newMagicItems = [...magicItems];
-      newMagicItems[index] = magicItem;
-    } else {
-      newMagicItems = [...magicItems, magicItem];
-    }
+      if (index !== null && index >= 0 && index < magicItems.length) {
+        newMagicItems = [...magicItems];
+        newMagicItems[index] = magicItem;
+      } else {
+        newMagicItems = [...magicItems, magicItem];
+      }
 
-    setMagicItems(newMagicItems);
-    saveMagicItems(newMagicItems);
-    setEditingIndex(null);
-  };
+      setMagicItems(newMagicItems);
+      saveMagicItems(newMagicItems);
+      setEditingIndex(null);
+    },
+    [magicItems]
+  );
 
-  const handleAddNewItem = () => {
+  const handleAddNewItem = useCallback(() => {
     const newItem: MagicItem = {
       name: "",
     };
-    const newMagicItems = [...magicItems, newItem];
-    setMagicItems(newMagicItems);
-    setEditingIndex(newMagicItems.length - 1);
-  };
+    setMagicItems((prev) => {
+      const newMagicItems = [...prev, newItem];
+      setEditingIndex(newMagicItems.length - 1);
+      return newMagicItems;
+    });
+  }, []);
 
-  const handleDeleteMagicItem = (index: number) => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
-      const newMagicItems = magicItems.filter((_, i) => i !== index);
-      setMagicItems(newMagicItems);
-      saveMagicItems(newMagicItems);
-      if (editingIndex === index) {
-        setEditingIndex(null);
-      } else if (editingIndex !== null && editingIndex > index) {
-        setEditingIndex(editingIndex - 1);
+  const handleDeleteMagicItem = useCallback(
+    (index: number) => {
+      if (window.confirm("Are you sure you want to delete this item?")) {
+        setMagicItems((prev) => {
+          const newMagicItems = prev.filter((_, i) => i !== index);
+          saveMagicItems(newMagicItems);
+          if (editingIndex === index) {
+            setEditingIndex(null);
+          } else if (editingIndex !== null && editingIndex > index) {
+            setEditingIndex(editingIndex - 1);
+          }
+          return newMagicItems;
+        });
       }
-    }
-  };
+    },
+    [editingIndex]
+  );
 
   return (
     <Container
@@ -67,7 +77,8 @@ const MakeItemsPage = () => {
       component={motion.div}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      style={{ willChange: "opacity" }}
     >
       <Divider sx={{ marginBottom: 2, borderColor: "#000" }} />
       <Stack gap={0.75} sx={{ marginTop: 2 }}>
@@ -82,15 +93,20 @@ const MakeItemsPage = () => {
         </Typography>
       </Stack>
       <Stack gap={2} sx={{ marginTop: 2 }}>
-        {magicItems.map((item, index) => (
-          <NewItemForm
-            key={`${item.name}-${index}`}
-            item={item}
-            onSave={(magicItem) => handleSaveMagicItem(magicItem, index)}
-            onDelete={() => handleDeleteMagicItem(index)}
-            isNew={item.name === "" && index === editingIndex}
-          />
-        ))}
+        {magicItems.map((item, index) => {
+          const handleSave = (magicItem: MagicItem) =>
+            handleSaveMagicItem(magicItem, index);
+          const handleDelete = () => handleDeleteMagicItem(index);
+          return (
+            <NewItemForm
+              key={item.name ? `${item.name}-${index}` : `item-${index}`}
+              item={item}
+              onSave={handleSave}
+              onDelete={handleDelete}
+              isNew={item.name === "" && index === editingIndex}
+            />
+          );
+        })}
       </Stack>
       <Button
         variant="contained"
@@ -99,10 +115,6 @@ const MakeItemsPage = () => {
         sx={{ marginTop: 2, width: "100%", borderRadius: 0 }}
         onClick={handleAddNewItem}
         startIcon={<Plus size={20} />}
-        component={motion.div}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <FormattedMessage id="MAKE_ITEMS.BUTTON.TEXT.ADD" />
       </Button>
@@ -112,10 +124,6 @@ const MakeItemsPage = () => {
         sx={{ marginTop: 2, width: "100%", borderRadius: 0 }}
         onClick={() => navigate("/generate-cards")}
         startIcon={<Eye size={20} />}
-        component={motion.div}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
       >
         <FormattedMessage id="MAKE_ITEMS.BUTTON.TEXT.PREVIEW" />
       </Button>

@@ -2,8 +2,9 @@ import { Divider, Stack, Typography } from "@mui/material";
 import type { MagicItem } from "../types";
 import { FormattedMessage } from "react-intl";
 import ItemTag from "./ItemTag";
+import { memo } from "react";
 
-const ItemCard = ({ item }: { item: MagicItem }) => {
+const ItemCard = memo(({ item }: { item: MagicItem }) => {
   return (
     <Stack gap={1}>
       <Typography variant="itemName">{item.name}</Typography>
@@ -68,6 +69,8 @@ const ItemCard = ({ item }: { item: MagicItem }) => {
       )}
     </Stack>
   );
-};
+});
+
+ItemCard.displayName = "ItemCard";
 
 export default ItemCard;

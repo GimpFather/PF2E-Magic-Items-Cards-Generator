@@ -41,7 +41,8 @@ const GenerateCardsPage = () => {
       component={motion.div}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      style={{ willChange: "opacity" }}
     >
       <Divider sx={{ marginBottom: 2, borderColor: "#000" }} />
       <Stack direction="row" gap={2} sx={{ marginY: 2 }}>
@@ -52,10 +53,6 @@ const GenerateCardsPage = () => {
           size="large"
           startIcon={<ArrowLeft size={20} />}
           sx={{ borderRadius: 0 }}
-          component={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <FormattedMessage id="GENERATE_CARDS.BUTTON.TEXT.BACK" />
         </Button>
@@ -66,10 +63,6 @@ const GenerateCardsPage = () => {
           size="large"
           sx={{ borderRadius: 0 }}
           startIcon={<Cards size={20} />}
-          component={motion.div}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <FormattedMessage id="GENERATE_CARDS.BUTTON.TEXT.GENERATE" />
         </Button>
@@ -84,7 +77,7 @@ const GenerateCardsPage = () => {
       >
         {magicItems.map((item, index) => (
           <Grid
-            key={`${item.name}-${index}`}
+            key={item.name ? `${item.name}-${index}` : `item-${index}`}
             size={4}
             sx={{
               border: "1px solid #000",
