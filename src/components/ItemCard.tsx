@@ -2,9 +2,18 @@ import { Divider, Stack, Typography } from "@mui/material";
 import type { MagicItem } from "../types";
 import { FormattedMessage } from "react-intl";
 import ItemTag from "./ItemTag";
-import { memo } from "react";
+import { memo, useMemo } from "react";
+import { marked } from "marked";
 
 const ItemCard = memo(({ item }: { item: MagicItem }) => {
+  const descriptionContent = useMemo(() => {
+    if (!item.description) return null;
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+    });
+    return marked.parseInline(item.description) as string;
+  }, [item.description]);
   return (
     <Stack gap={1}>
       <Typography variant="itemName">{item.name}</Typography>
@@ -63,9 +72,11 @@ const ItemCard = memo(({ item }: { item: MagicItem }) => {
       </Stack>
       <Divider sx={{ borderColor: "#000" }} />
       {item.description && (
-        <Typography variant="itemText" sx={{ whiteSpace: "pre-wrap" }}>
-          {item.description}
-        </Typography>
+        <Typography
+          variant="itemText"
+          sx={{ whiteSpace: "pre-wrap" }}
+          dangerouslySetInnerHTML={{ __html: descriptionContent || "" }}
+        />
       )}
     </Stack>
   );

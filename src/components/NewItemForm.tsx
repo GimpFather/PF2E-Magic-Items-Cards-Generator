@@ -16,7 +16,18 @@ import { CaretUp, Trash } from "@phosphor-icons/react";
 import type { MagicItem } from "../types";
 import { FormattedMessage } from "react-intl";
 import { useForm } from "react-hook-form";
-import { useState, useMemo, memo } from "react";
+import { useState, useMemo, memo, useRef } from "react";
+import { MDXEditor } from "@mdxeditor/editor";
+import type { MDXEditorMethods } from "@mdxeditor/editor";
+import "@mdxeditor/editor/style.css";
+import {
+  headingsPlugin,
+  listsPlugin,
+  quotePlugin,
+  markdownShortcutPlugin,
+  linkPlugin,
+  linkDialogPlugin,
+} from "@mdxeditor/editor";
 
 interface NewItemFormProps {
   item: MagicItem;
@@ -30,6 +41,7 @@ const NewItemForm = memo(
     const [showSaveNotification, setShowSaveNotification] = useState(false);
     const [showCopyNotification, setShowCopyNotification] = useState(false);
     const [copiedText, setCopiedText] = useState("");
+    const editorRef = useRef<MDXEditorMethods | null>(null);
 
     const copyToClipboard = async (text: string) => {
       try {
@@ -59,6 +71,8 @@ const NewItemForm = memo(
       register,
       handleSubmit,
       formState: { errors },
+      setValue,
+      getValues,
     } = useForm<MagicItem & { tagsString?: string }>({
       defaultValues,
     });
@@ -244,16 +258,53 @@ const NewItemForm = memo(
                   helperText={errors.trigger?.message}
                   fullWidth
                 />
-                <TextField
-                  label="Description"
-                  {...register("description")}
-                  error={!!errors.description}
-                  helperText={errors.description?.message}
-                  multiline
-                  minRows={4}
-                  maxRows={10}
-                  fullWidth
-                />
+                <Box>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      mb: 1,
+                      color: errors.description
+                        ? "error.main"
+                        : "text.secondary",
+                    }}
+                  >
+                    Description
+                    {errors.description && ` - ${errors.description.message}`}
+                  </Typography>
+                  <Box
+                    sx={{
+                      border: errors.description
+                        ? "1px solid"
+                        : "1px solid rgba(0, 0, 0, 0.23)",
+                      borderColor: errors.description
+                        ? "error.main"
+                        : "rgba(0, 0, 0, 0.23)",
+                      borderRadius: 1,
+                      "& .mdxeditor": {
+                        minHeight: "200px",
+                      },
+                    }}
+                  >
+                    <MDXEditor
+                      ref={editorRef}
+                      markdown={getValues("description") || ""}
+                      onChange={(markdown) => {
+                        setValue("description", markdown, {
+                          shouldDirty: true,
+                        });
+                      }}
+                      plugins={[
+                        headingsPlugin(),
+                        listsPlugin(),
+                        quotePlugin(),
+                        markdownShortcutPlugin(),
+                        linkPlugin(),
+                        linkDialogPlugin(),
+                      ]}
+                      contentEditableClassName="prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none"
+                    />
+                  </Box>
+                </Box>
                 <Box sx={{ display: "flex", gap: 2 }}>
                   <Button
                     type="submit"
